@@ -8,14 +8,15 @@
   height: 80px;
 }
 
-.animated-logo {
-  animation: App-logo-spin infinite 20s linear;
-}
+/* .animated-logo { */
+/*   animation: App-logo-spin infinite 20s linear; */
+/* } */
 
 .locked-logo {
   position: absolute;
   top: 0;
   left: 0;
+  margin-left: 1px;
   z-index: 1;
 }
 
