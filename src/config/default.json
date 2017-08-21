@@ -3,5 +3,16 @@
     "development": "d2b1d6a526421e7fda5b9d602aee1387870d5e09f4679781697dbb47e66dc415", 
     "stage": "",
     "production": ""
+  },
+  "apiUrl": {
+    "development": "http://api.battlestatsify.dev",
+    "stage": "",
+    "production": "",
+  },
+  applicationData": {
+    "applicationName": "BattleStatsifyClient" 
+  },
+  "s3": {
+    "linkBase": "https://s3-us-west-2.amazonaws.com/battlestatsify-static-assets/img/profileicon/" 
   }
 }

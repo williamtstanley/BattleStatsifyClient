@@ -1,36 +1,39 @@
 import actionConstants from './actionTypeConstants';
+import config from '../config/default';
 
-const submitLogin = (credentials) => {
-	return (dispatch) => {
-		return fetch(getRequest(credentials, '/api/sign-in'))
-			.then((response) => {
-				if (!response.ok) {
-					getErrors(response).then((error) => dispatch(loginFailed(error)));
-				} else {
-					getResult(response).then((result) => {
-						fetchPayments(dispatch, result);
-						dispatch(loginSuccess(result));
-					});
-				}
-			});
-	};
-};
+const apiUrl = config.apiUrl[process.env.NODE_ENV || 'development'];
 
-const toggleModal = () => ({
-  type: actionTypes.TOGGLE_MODAL,
-});
+const getSummonerData = (name) => {
+  return (dispatch) => {
+    return fetch(getRequest(name, `${apiUrl}/summoner/`, {
+      param: name,
+    }))
+      .then((response) => {
+        if(!response.ok) {
+          getErrors(response)
+            .then((error) => dispatch(getSummonerFailure(error))
+        } else {
+          getResponse(response)
+            .then((result) => dispatch(getSummonerSuccess(result)))
+        }
+      })
+  }
+}
 
-const loginSuccess = (result) => ({ type: actionTypes.LOGIN_SUCCESS, payload: result });
-const loginFailed = (err) => ({ type: actionTypes.LOGIN_FAILED, payload: err });
 
-const getRequest = (credentials, url, type) => {
+  
+//HELPERS BELOW
+
+const getRequest = (url, opts) => {
 	const req = {
-		method: type ? type : 'POST',
+		method: opts.type ? opts.type : 'GET',
 		headers: getHeaders(),
 		credentials: 'same-origin',
 	};
 
-	if (credentials) req.body = JSON.stringify(Object.assign({}, credentials));
+  if (opts.body) req.body = opts.body;
+
+  if (opts.param) url = `${url}${queryItem}`;
 
 	return new Request(
 		url,
@@ -39,11 +42,13 @@ const getRequest = (credentials, url, type) => {
 };
 
 const getHeaders = () => {
+  let appName = config.appData.appName;
+  let apiKey = config.apiKey[process.env.NODE_ENV || 'development'];
 	let headers = new Headers();
 
 	headers.append('Accept', 'application/json');
 	headers.append('Content-Type', 'application/json');
-
+  headers.append('Authorization', 'Basic ' + base64.encode(`${appName}:${apiKey}`));
 	return headers;
 };
 
@@ -55,6 +60,5 @@ const getErrors = (response) => {
 const getResult = (response) => response.json();
 
 export default {
-  submitLogin,
-  toggleModal,
+  getSummonerData,
 };
