@@ -1,0 +1,33 @@
+.summoner-card-content {
+  display: flex;
+  padding: 15px;
+  background-color: #1C242D; 
+}
+
+.title-content h1 {
+  font-size: 24px;
+  margin: 0;
+  padding:0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+.title-content {
+  display: inline-block;
+  vertical-align: top;
+  color: white;
+  margin-left: 15px;
+}
+
+.title-content small {
+  display: block;
+  color: #C4C4C4;
+  margin-top: 3px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.profile-icon {
+  width: 65px;
+  height: 65px;
+}

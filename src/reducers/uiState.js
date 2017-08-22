@@ -1,16 +1,39 @@
 import actionConstants from '../actions/actionTypeConstants';
 
-const { CREATE_NOTE, UPDATE_NOTE } = actionConstants;
+const {
+  SUMMONER_DATA_SUCCESS,
+  SUMMONER_DATA_FAILURE,
+  TEXT_INPUT_CHANGE,
+  IMAGE_LOADED,
+} = actionConstants;
 
 const initialState = {};
 
 const handlers = {
-  [CREATE_NOTE]: (state, action) => {
-    return // some new state with new note
+  [SUMMONER_DATA_FAILURE]: (state, action) => {
+    return Object.assign({}, state, {
+      summonerError: action.payload,
+      summoner: undefined,
+    });
   },
-  [UPDATE_NOTE]: (state, action) => {
-    return // some new state with note updated
-  }
+  [SUMMONER_DATA_SUCCESS]: (state, action) => {
+    return Object.assign({}, state, {
+      summoner: action.payload,
+      summonerError: undefined,
+    });
+  },
+  [TEXT_INPUT_CHANGE]: (state, action) => {
+    return Object.assign({}, state, {
+      inputs: Object.assign({}, state.inputs, {
+        [action.payload.fieldName]: action.payload.value,
+      }),
+    });
+  },
+  [IMAGE_LOADED]: (state, action) => {
+    return Object.assign({}, state, {
+      [`${action.payload}Loaded`]: true,
+    });
+  },
 };
 
 export default (state = initialState, action) => {

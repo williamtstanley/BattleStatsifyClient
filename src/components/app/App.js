@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Logo, TitleText, SummonerCard } from '../../components'
+import { Logo, TitleText, SummonerCard, SearchInput } from '../../components'
 import './App.css';
 
 class App extends Component {
@@ -10,10 +10,8 @@ class App extends Component {
           <Logo />
           <TitleText>BattleStatsify</TitleText>
         </div>
+        <SearchInput />
         <SummonerCard />
-        <p className="App-intro">
-          here goes content 
-        </p>
       </div>
     );
   }

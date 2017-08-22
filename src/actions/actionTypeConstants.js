@@ -1,6 +1,8 @@
-const actionTypes = {
-  CREATE_NOTE: "CREATE_NOTE",
-  UPDATE_NOTE: "UPDATE_NOTE",	
+const actionConstants = {
+  SUMMONER_DATA_SUCCESS: "SUMMONER_DATA_SUCCESS",
+  SUMMONER_DATA_FAILURE: "SUMMONER_DATA_FAILURE",
+  TEXT_INPUT_CHANGE: "TEXT_INPUT_CHANGE",
+  IMAGE_LOADED: "IMAGE_LOADED",
 }
 
-export default actionTypes;
+export default actionConstants;
