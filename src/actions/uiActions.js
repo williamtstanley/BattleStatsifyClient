@@ -2,7 +2,9 @@ import actionConstants from './actionTypeConstants';
 
 const {
   TEXT_INPUT_CHANGE,
-  IMAGE_LOADED
+  IMAGE_LOADED,
+  TOGGLE_MODAL,
+  SET_MATCH_DETAILS,
 } = actionConstants;
 
 const actions = {
@@ -21,6 +23,18 @@ const actions = {
       payload: fieldName,
     }
   },
+  toggleModal: (modalName) => {
+    return {
+      type: TOGGLE_MODAL,
+      payload: modalName, 
+    }
+  },
+  setMatchDetails: (match) => {
+    return {
+      type: SET_MATCH_DETAILS,
+      payload: match
+    }
+  }
 }
 
 export default actions;

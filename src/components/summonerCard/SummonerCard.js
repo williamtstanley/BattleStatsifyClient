@@ -117,6 +117,7 @@ export default class SummonerCard extends Component {
                 </h1>	
               </div>
             </div>
+            <div>Velocity goes here</div>
             <div>
               {this.getMostRecentGameDate()}
               {this.getTierWinRate()}

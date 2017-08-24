@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; 
 import moment from 'moment';
+import uiActions from '../../actions/uiActions';
 import ChampionDetail from './ChampionDetail';
 import ListItemDetail from './ListItemDetail';
 
-
+@connect(
+  undefined,
+  (dispatch, ownProps) => ({
+    handleClick: () => {
+      dispatch(uiActions.setMatchDetails(ownProps.match))
+      dispatch(uiActions.toggleModal('matchDetails'))
+    }
+  })
+)
 class RecentMatchListItem extends Component {
   formatText(text) {
     text = text.replace('_',' ') 
@@ -26,7 +36,9 @@ class RecentMatchListItem extends Component {
     const { win } = this.props.playerInfo.stats;
     
     return (
-      <tr className='match-list-item'>
+      <tr className='match-list-item'
+        onClick={this.props.handleClick}
+      >
         <td>
           <ChampionDetail 
             championId={this.props.playerInfo.championId}

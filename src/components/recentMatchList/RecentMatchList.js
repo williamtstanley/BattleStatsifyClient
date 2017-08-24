@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecentMatchListItem from './RecentMatchListItem';
+import { Modal, MatchDetails } from '../';
 import './RecentMatchList.less';
 
 @connect(
@@ -29,6 +30,9 @@ class RecentMatchList extends Component {
   render() {
     return (
       <div aria-hidden={ !!this.props.error || !this.props.matches.length}>
+        <Modal name='matchDetails'>
+          <MatchDetails />
+        </Modal>
         <table className='recent-match-container'>
         <thead>
           <tr>

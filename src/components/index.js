@@ -5,3 +5,5 @@ export { default as TitleText } from './titleText/TitleText';
 export { default as SummonerCard } from './summonerCard/SummonerCard';
 export { default as SearchInput } from './searchInput/SearchInput';
 export { default as RecentMatchList } from './recentMatchList/RecentMatchList';
+export { default as Modal } from './modal/Modal';
+export { default as MatchDetails } from './matchDetails/MatchDetails';

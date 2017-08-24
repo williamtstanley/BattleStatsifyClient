@@ -6,9 +6,17 @@ const {
   TEXT_INPUT_CHANGE,
   IMAGE_LOADED,
   FETCH_STATIC_SUCCESS,
+  TOGGLE_MODAL,
+  SET_MATCH_DETAILS,
 } = actionConstants;
 
-const initialState = {};
+const initialState = {
+  modals: {
+    matchDetails: {
+      show: false,
+    },
+  },
+};
 
 const handlers = {
   [SUMMONER_DATA_FAILURE]: (state, action) => {
@@ -39,6 +47,33 @@ const handlers = {
   [FETCH_STATIC_SUCCESS]: (state, action) => {
     return Object.assign({}, state, {
       champions: action.payload
+    })
+  },
+  [TOGGLE_MODAL]: (state, action) => {
+    const modal = state.modals[action.payload];
+    return Object.assign(
+      {}, 
+      state, 
+      {
+        modals: Object.assign(
+          {}, 
+          state.modals, 
+          {
+            [action.payload]: Object.assign(
+              {}, 
+              modal,
+              {
+                show: !modal.show
+              }
+            )
+          }
+        )
+      }
+    )
+  },
+  [SET_MATCH_DETAILS]: (state, actions) => {
+    return Object.assign({}, state, {
+      matchDetails: actions.payload
     })
   }
 };
