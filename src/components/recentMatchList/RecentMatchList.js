@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecentMatchListItem from './RecentMatchListItem';
-import './RecentMatchList.css';
+import './RecentMatchList.less';
 
 @connect(
   (state) => {

@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import apiActions from '../../actions/apiActions';
 import uiActions from '../../actions/uiActions';
-import './SearchInput.css';
+import './SearchInput.less';
 
 @connect(
   (state) => {

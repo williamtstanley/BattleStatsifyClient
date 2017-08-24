@@ -5,7 +5,7 @@ import uiActions from '../../actions/uiActions';
 import config from '../../config/default';
 import CardDetailBlock from './CardDetailBlock';
 
-import './SummonerCard.css';
+import './SummonerCard.less';
 
 const urlBase = config.s3.linkBase; 
 

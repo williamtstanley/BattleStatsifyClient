@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Logo, TitleText, SummonerCard, SearchInput, RecentMatchList } from '../../components'
-import './App.css';
+import './App.less';
 
 class App extends Component {
   render() {
