@@ -5,6 +5,7 @@ const {
   SUMMONER_DATA_FAILURE,
   TEXT_INPUT_CHANGE,
   IMAGE_LOADED,
+  FETCH_STATIC_SUCCESS,
 } = actionConstants;
 
 const initialState = {};
@@ -35,6 +36,11 @@ const handlers = {
       [`${action.payload}Loaded`]: true,
     });
   },
+  [FETCH_STATIC_SUCCESS]: (state, action) => {
+    return Object.assign({}, state, {
+      champions: action.payload
+    })
+  }
 };
 
 export default (state = initialState, action) => {

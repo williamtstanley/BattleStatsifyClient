@@ -7,6 +7,7 @@ import './RecentMatchList.less';
   (state) => {
     return {
       matches: state.matches || [],
+      error: state.summonerError,
     }
   }
 )
@@ -21,21 +22,21 @@ class RecentMatchList extends Component {
           .find((p) => p.participantId === player.participantId);
 
         return (
-          <RecentMatchListItem key={index} match={match} stats={particapantInfo.stats} />
+          <RecentMatchListItem key={index} match={match} playerInfo={particapantInfo} />
         )
       }) : null;
   }
   render() {
     return (
-      <div aria-hidden={!this.props.matches.length}>
+      <div aria-hidden={ !!this.props.error || !this.props.matches.length}>
         <table className='recent-match-container'>
         <thead>
           <tr>
-            <th>hero</th>
-            <th>result</th>
-            <th>type</th>
-            <th>duration</th>
-            <th>kda</th>
+            <th>Champion</th>
+            <th>Result</th>
+            <th>Type</th>
+            <th>Duration</th>
+            <th>KDA</th>
           </tr>
         </thead>
         <tbody>

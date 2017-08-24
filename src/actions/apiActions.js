@@ -4,6 +4,7 @@ import config from '../config/default';
 const { 
   SUMMONER_DATA_SUCCESS,
   SUMMONER_DATA_FAILURE,
+  FETCH_STATIC_SUCCESS,
 } = actionConstants;
 
 const apiUrl = config.apiUrl[process.env.NODE_ENV || 'development'];
@@ -22,23 +23,37 @@ const getSummonerData = (name) => {
           getResult(response)
             .then((result) => dispatch(getSummonerSuccess(result)))
         }
-      }).catch((err) => {
-        console.log('error on front', err)
       })
   }
 }
 
-const getSummonerSuccess = (result) => {
-  console.log(result)
-  return {
-    type: SUMMONER_DATA_SUCCESS,
-    payload: result,
-  }
-}
+const getSummonerSuccess = (result) => ({
+  type: SUMMONER_DATA_SUCCESS,
+  payload: result,
+})
 
 const getSummonerFailure = (error) => ({
   type: SUMMONER_DATA_FAILURE,
   payload: error,
+})
+
+const fetchStaticData = () => {
+  return (dispatch) => {
+    return fetch(getRequest(`${apiUrl}/static-data/champion`, {}))
+      .then((response) => {
+        if(!response.ok) {
+          console.log('failed for some reason', response)
+        } else {
+          getResult(response)
+          .then((result) => dispatch(fetchStaticDataSuccess(result)))
+        }
+      })
+  }
+}
+
+const fetchStaticDataSuccess = (result) => ({
+  type: FETCH_STATIC_SUCCESS,
+  payload: result,
 })
 
 //HELPERS BELOW
@@ -86,4 +101,5 @@ const getResult = (response) => response.json();
 
 export default {
   getSummonerData,
+  fetchStaticData,
 };

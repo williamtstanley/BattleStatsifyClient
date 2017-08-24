@@ -1,58 +1,53 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import ChampionDetail from './ChampionDetail';
+import ListItemDetail from './ListItemDetail';
 
-const ListItemTd = (props) => (
-  <td>
-    <ul>
-      <li>
-        <span className={props.headerClass}>
-          {props.headerText}
-        </span>
-      </li>
-      <li>
-        <span className='sub-text'>
-          {props.subText}
-        </span>
-      </li>
-    </ul>
-  </td>
-)
 
 class RecentMatchListItem extends Component {
   formatText(text) {
     text = text.replace('_',' ') 
     return `${text[0]}${text.slice(1).toLowerCase()}`
   }
-  renderGameType() {
-    const { gameMode, gameType } = this.props.match;
-    return (
-      <ListItemTd 
-        headerClass
-        headerText={this.formatText(gameMode)}
-        subText={this.formatText(gameType)}  
-      />
-    )
+
+  getDuration() {
+    const duration = moment.duration(this.props.match.gameDuration * 1000)
+    return `${duration.minutes()}:${duration.seconds()}`
   }
-  
-  renderWinState() {
-    const { win } = this.props.stats;
-    const { gameCreation } = this.props.match;
-    return (
-      <ListItemTd 
-        headerClass={win ? 'won-match' : 'lost-match'}
-        headerText={win ? 'Won match' : 'Lost match'}
-        subText={moment(gameCreation).fromNow()}
-      />
-    );
+
+  getKDA() {
+    const { kills, assists, deaths } = this.props.playerInfo.stats
+    const kda = `${kills}/${deaths}/${assists}`
+    return <span className='k-d-a-text'>{kda}</span>
   }
+
   render() {
+    const { gameMode, gameType, gameCreation } = this.props.match;
+    const { win } = this.props.playerInfo.stats;
+    
     return (
       <tr className='match-list-item'>
-        <td></td>
-        {this.renderWinState()}
-        {this.renderGameType()}
-        <td></td>
-        <td></td>
+        <td>
+          <ChampionDetail 
+            championId={this.props.playerInfo.championId}
+          /> 
+        </td>
+        <td>
+          <ListItemDetail
+            headerClass={win ? 'won-match' : 'lost-match'}
+            headerText={win ? 'Won match' : 'Lost match'}
+            subText={moment(gameCreation).fromNow()}
+          />
+        </td>
+        <td>
+          <ListItemDetail
+            headerClass
+            headerText={this.formatText(gameMode)}
+            subText={this.formatText(gameType)}  
+          />
+        </td>
+        <td>{this.getDuration()}</td>
+        <td>{this.getKDA()}</td>
       </tr>
     )
   }

@@ -45,6 +45,8 @@ export default class SearchInput extends Component {
       >
         <input 
           type={'text'}
+          className='search'
+          placeholder='Summoner name...'
 					onChange={this.handleChange}
         />
         <button>Search</button>

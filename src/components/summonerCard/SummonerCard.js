@@ -25,13 +25,6 @@ const urlBase = config.s3.linkBase;
   }
 )
 export default class SummonerCard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imgLoaded: false,
-    }
-  }
-
   getProfileIcon() {
     const { profileIconId } = this.props.summoner
     return profileIconId ? 
