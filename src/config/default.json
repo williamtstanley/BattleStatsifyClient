@@ -5,7 +5,7 @@
     "production": ""
   },
   "apiUrl": {
-    "development": "http://api.battlestatsify.dev",
+    "development": "http://localhost:3001",
     "stage": "",
     "production": ""
   },

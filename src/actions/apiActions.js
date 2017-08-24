@@ -10,25 +10,31 @@ const apiUrl = config.apiUrl[process.env.NODE_ENV || 'development'];
 
 const getSummonerData = (name) => {
   return (dispatch) => {
-    return fetch(getRequest(`${apiUrl}/summoner/`, {
+    return fetch(getRequest(`${apiUrl}/recentMatchData/`, {
       param: name,
     }))
       .then((response) => {
         if(!response.ok) {
+          console.log('response', response)
           getErrors(response)
             .then((error) => dispatch(getSummonerFailure(error)))
         } else {
           getResult(response)
             .then((result) => dispatch(getSummonerSuccess(result)))
         }
+      }).catch((err) => {
+        console.log('error on front', err)
       })
   }
 }
 
-const getSummonerSuccess = (result) => ({
-  type: SUMMONER_DATA_SUCCESS,
-  payload: result,
-})
+const getSummonerSuccess = (result) => {
+  console.log(result)
+  return {
+    type: SUMMONER_DATA_SUCCESS,
+    payload: result,
+  }
+}
 
 const getSummonerFailure = (error) => ({
   type: SUMMONER_DATA_FAILURE,
@@ -71,7 +77,9 @@ const encodeBase64 = (string) => {
 
 const getErrors = (response) => {
 	return response.json()
-		.then(resultJson => resultJson.error);
+		.then(resultJson => {
+      return resultJson.error
+    });
 };
 
 const getResult = (response) => response.json();

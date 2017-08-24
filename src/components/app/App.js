@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Logo, TitleText, SummonerCard, SearchInput } from '../../components'
+import { Logo, TitleText, SummonerCard, SearchInput, RecentMatchList } from '../../components'
 import './App.css';
 
 class App extends Component {
@@ -12,6 +12,7 @@ class App extends Component {
         </div>
         <SearchInput />
         <SummonerCard />
+        <RecentMatchList />
       </div>
     );
   }

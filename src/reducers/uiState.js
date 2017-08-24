@@ -18,7 +18,8 @@ const handlers = {
   },
   [SUMMONER_DATA_SUCCESS]: (state, action) => {
     return Object.assign({}, state, {
-      summoner: action.payload,
+      summoner: action.payload.summoner,
+      matches: action.payload.matches,
       summonerError: undefined,
     });
   },
