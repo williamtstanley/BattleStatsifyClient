@@ -5,12 +5,16 @@ const {
   SUMMONER_DATA_SUCCESS,
   SUMMONER_DATA_FAILURE,
   FETCH_STATIC_SUCCESS,
+  CLEAR_SUMMONER_DATA,
+  FETCHING_DATA,
 } = actionConstants;
 
 const apiUrl = config.apiUrl[process.env.NODE_ENV || 'development'];
 
 const getSummonerData = (name) => {
   return (dispatch) => {
+    dispatch(toggleFetching())
+    dispatch(clearSummonerAndMatchData())
     return fetch(getRequest(`${apiUrl}/recentMatchData/`, {
       param: name,
     }))
@@ -18,10 +22,16 @@ const getSummonerData = (name) => {
         if(!response.ok) {
           console.log('response', response)
           getErrors(response)
-            .then((error) => dispatch(getSummonerFailure(error)))
+            .then((error) => {
+              dispatch(getSummonerFailure(error))
+              dispatch(toggleFetching())
+            })
         } else {
           getResult(response)
-            .then((result) => dispatch(getSummonerSuccess(result)))
+            .then((result) => {
+              dispatch(getSummonerSuccess(result))
+              dispatch(toggleFetching())
+            })
         }
       })
   }
@@ -35,6 +45,14 @@ const getSummonerSuccess = (result) => ({
 const getSummonerFailure = (error) => ({
   type: SUMMONER_DATA_FAILURE,
   payload: error,
+})
+
+const clearSummonerAndMatchData = () => ({
+  type: CLEAR_SUMMONER_DATA,
+})
+
+const toggleFetching = () => ({
+  type: FETCHING_DATA,
 })
 
 const fetchStaticData = () => {

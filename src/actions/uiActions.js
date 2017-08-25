@@ -23,10 +23,9 @@ const actions = {
       payload: fieldName,
     }
   },
-  toggleModal: (modalName) => {
+  toggleModal: () => {
     return {
       type: TOGGLE_MODAL,
-      payload: modalName, 
     }
   },
   setMatchDetails: (match) => {

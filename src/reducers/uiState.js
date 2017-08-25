@@ -8,14 +8,12 @@ const {
   FETCH_STATIC_SUCCESS,
   TOGGLE_MODAL,
   SET_MATCH_DETAILS,
+  CLEAR_SUMMONER_DATA,
+  FETCHING_DATA,
 } = actionConstants;
 
 const initialState = {
-  modals: {
-    matchDetails: {
-      show: false,
-    },
-  },
+  modalOpen: false,
 };
 
 const handlers = {
@@ -31,6 +29,17 @@ const handlers = {
       matches: action.payload.matches,
       summonerError: undefined,
     });
+  },
+  [CLEAR_SUMMONER_DATA]: (state, action) => {
+    return Object.assign({}, state, {
+      summoner: undefined,
+      matches: undefined,
+    })
+  },
+  [FETCHING_DATA]: (state, action) => {
+    return Object.assign({}, state, {
+      loading: !state.loadingData,
+    })
   },
   [TEXT_INPUT_CHANGE]: (state, action) => {
     return Object.assign({}, state, {
@@ -50,26 +59,9 @@ const handlers = {
     })
   },
   [TOGGLE_MODAL]: (state, action) => {
-    const modal = state.modals[action.payload];
-    return Object.assign(
-      {}, 
-      state, 
-      {
-        modals: Object.assign(
-          {}, 
-          state.modals, 
-          {
-            [action.payload]: Object.assign(
-              {}, 
-              modal,
-              {
-                show: !modal.show
-              }
-            )
-          }
-        )
-      }
-    )
+    return Object.assign({}, state, {
+      modalOpen: !state.modalOpen,
+    }) 
   },
   [SET_MATCH_DETAILS]: (state, actions) => {
     return Object.assign({}, state, {

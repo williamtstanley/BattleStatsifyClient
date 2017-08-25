@@ -7,3 +7,4 @@ export { default as SearchInput } from './searchInput/SearchInput';
 export { default as RecentMatchList } from './recentMatchList/RecentMatchList';
 export { default as Modal } from './modal/Modal';
 export { default as MatchDetails } from './matchDetails/MatchDetails';
+export { default as ChampionDetail } from './championDetail/ChampionDetail';

@@ -4,21 +4,29 @@ import uiActions from '../../actions/uiActions';
 import './Modal.less';
 
 @connect(
-  (state, ownProps) => ({
-    show: state.modals[ownProps.name].show,
+  (state) => ({
+    modalOpen: state.modalOpen,
   }),
-  (dispatch, ownProps) => ({
-    onClose: () => dispatch(uiActions.toggleModal(ownProps.name))
+  (dispatch) => ({
+    onClose: () => dispatch(uiActions.toggleModal())
   })
 )
 
 class Modal extends Component {
+  handleExitClick(e) {
+    if (e.target.className === 'backdrop') {
+      this.props.onClose()
+    }
+  } 
   render() {
-    if (!this.props.show) {
+    if (!this.props.modalOpen) {
       return null
     }
     return (
-      <div className="backdrop">
+      <div 
+        onClick={(e) => this.handleExitClick(e)}
+        className="backdrop"
+        >
         <div className="modal">
           <div className="header">
             <i 

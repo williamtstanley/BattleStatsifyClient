@@ -25,7 +25,9 @@ class ChampionDetail extends Component {
           className='profile-icon'
           alt='profile-icon'
         />
-        <span>{this.props.champion.name}</span>
+        {
+          !this.props.noText ? <span>{this.props.champion.name}</span> : null
+        }
       </div>
     )
   }

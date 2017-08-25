@@ -2,27 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import moment from 'moment';
 import uiActions from '../../actions/uiActions';
-import ChampionDetail from './ChampionDetail';
+import { ChampionDetail } from '../';
 import ListItemDetail from './ListItemDetail';
+import { formatText, getDuration } from '../../helpers';
 
 @connect(
   undefined,
   (dispatch, ownProps) => ({
     handleClick: () => {
       dispatch(uiActions.setMatchDetails(ownProps.match))
-      dispatch(uiActions.toggleModal('matchDetails'))
+      dispatch(uiActions.toggleModal())
     }
   })
 )
 class RecentMatchListItem extends Component {
-  formatText(text) {
-    text = text.replace('_',' ') 
-    return `${text[0]}${text.slice(1).toLowerCase()}`
-  }
-
   getDuration() {
-    const duration = moment.duration(this.props.match.gameDuration * 1000)
-    return `${duration.minutes()}:${duration.seconds()}`
+    return getDuration(this.props.match.gameDuration)
   }
 
   getKDA() {
@@ -32,6 +27,10 @@ class RecentMatchListItem extends Component {
   }
 
   render() {
+    if (!this.props.match || !this.props.playerInfo) {
+      return null;
+    }
+
     const { gameMode, gameType, gameCreation } = this.props.match;
     const { win } = this.props.playerInfo.stats;
     
@@ -54,8 +53,8 @@ class RecentMatchListItem extends Component {
         <td>
           <ListItemDetail
             headerClass
-            headerText={this.formatText(gameMode)}
-            subText={this.formatText(gameType)}  
+            headerText={formatText(gameMode)}
+            subText={formatText(gameType)}  
           />
         </td>
         <td>{this.getDuration()}</td>

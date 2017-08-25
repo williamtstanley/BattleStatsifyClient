@@ -16,6 +16,7 @@ const urlBase = config.s3.linkBase;
 			summoner: state.summoner,
       summonerError: state.summonerError,
       matches: state.matches,
+      loadingData: state.loadingData,
 		};
 	},
   (dispatch) => {
@@ -61,7 +62,10 @@ export default class SummonerCard extends Component {
     let output;
     const { leagueStat } = this.props.summoner;
     if (leagueStat && leagueStat.length) {
-      const { wins, losses } = leagueStat[0];
+      const numGamesArr = leagueStat.map((stat) => stat.wins + stat.losses)
+      const index = numGamesArr.indexOf(Math.max(...numGamesArr))
+        
+      const { wins, losses } = leagueStat[index];
       const str = `${Math.round((wins / (wins + losses)) * 10000) / 100}%`
       output = (
         <CardDetailBlock
@@ -90,6 +94,9 @@ export default class SummonerCard extends Component {
   }
 
   render() {
+    if (this.props.loadingData) {
+      return null;
+    }
     const notFound = this.props.summonerError ? 
       <h1>Sorry, I could not find a summoner with that name.</h1> : null;
 		return (
@@ -117,7 +124,6 @@ export default class SummonerCard extends Component {
                 </h1>	
               </div>
             </div>
-            <div>Velocity goes here</div>
             <div>
               {this.getMostRecentGameDate()}
               {this.getTierWinRate()}
