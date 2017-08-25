@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getDuration } from '../../helpers';
 import TeamDetails from './TeamDetails';
 import './MatchDetails.less';
 
@@ -25,19 +26,28 @@ import './MatchDetails.less';
     
     return {
       match: state.matchDetails,
-      teams: getTeams(), 
+      teams: getTeams(),
     }
   }
 )
 class MatchDetails extends Component {
+  getKillCount(team) {
+    return team.reduce((a, b) => a + b.stats.kills, 0)
+  }
   render() {
     if (!this.props.match) {
       return null;
     }
+    const { teams, match } = this.props;
     return (
       <div className="match-details-container">
-        <TeamDetails team={this.props.teams.team1}/>
-        <TeamDetails team={this.props.teams.team2}/>
+        <div className='score-board'>
+          <span>{this.getKillCount(teams.team1)}</span>
+          <span>{getDuration(match.gameDuration)}</span>
+          <span>{this.getKillCount(teams.team2)}</span>
+        </div>
+        <TeamDetails team={teams.team1}/>
+        <TeamDetails team={teams.team2}/>
       </div>
     )
   }

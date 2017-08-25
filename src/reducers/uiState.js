@@ -38,7 +38,7 @@ const handlers = {
   },
   [FETCHING_DATA]: (state, action) => {
     return Object.assign({}, state, {
-      loading: !state.loadingData,
+      loadingData: !state.loadingData,
     })
   },
   [TEXT_INPUT_CHANGE]: (state, action) => {

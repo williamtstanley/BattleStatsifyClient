@@ -43,7 +43,6 @@ class ParticipantDetail extends Component {
 
   render() {
     const { playerDetails, championId, stats, timeline } = this.props.participant;
-    console.log(this.props.participant)
     return (
       <tr>
         <td className='champ-details-container'>

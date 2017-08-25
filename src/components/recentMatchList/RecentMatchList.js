@@ -6,6 +6,7 @@ import './RecentMatchList.less';
 
 @connect(
   (state) => {
+    console.log(state)
     return {
       summoner: state.summoner,
       matches: state.matches,
