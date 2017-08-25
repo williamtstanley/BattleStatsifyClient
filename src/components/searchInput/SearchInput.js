@@ -31,6 +31,7 @@ export default class SearchInput extends Component {
   handleSubmit(e) {
 		e.preventDefault();
     this.props.getSummonerData(this.props.search)
+    document.getElementById('search-form').reset();
   }
   
   handleChange(e) {
@@ -40,6 +41,7 @@ export default class SearchInput extends Component {
   render() {
     return (
       <form
+        id='search-form'
         className='search-form'
         onSubmit={this.handleSubmit}
       >

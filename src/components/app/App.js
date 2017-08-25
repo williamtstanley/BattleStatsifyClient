@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import apiActions from '../../actions/apiActions'
+import apiActions from '../../actions/apiActions';
 
 import {
   AppHeader,
   SummonerCard,
   SearchInput,
-  RecentMatchList 
+  RecentMatchList,
+  Spinner, 
 } from '../'
 
 import './App.less';
@@ -28,6 +29,7 @@ class App extends Component {
         <SearchInput />
         <SummonerCard />
         <RecentMatchList />
+        <Spinner />
       </div>
     );
   }
