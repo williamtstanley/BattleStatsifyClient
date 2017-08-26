@@ -6,7 +6,6 @@ import './RecentMatchList.less';
 
 @connect(
   (state) => {
-    console.log(state)
     return {
       summoner: state.summoner,
       matches: state.matches,
@@ -17,23 +16,24 @@ import './RecentMatchList.less';
 )
 class RecentMatchList extends Component {
   renderList() {
-    if (this.props.matches.length) {
-      return this.props.matches.map((match, index) => {
-        if (match) {
-          const { participantIdentities, participants } = match;
-          const player = participantIdentities
-            .find((pId) => pId.player && pId.player.accountId === this.props.summoner.accountId);
-          const particapantInfo = player ? participants
-            .find((p) => p.participantId === player.participantId) : null;
+    return this.props.matches.map((match, index) => {
+      if (match) {
+        const { participantIdentities, participants } = match;
+        const player = participantIdentities
+          .find((pId) => (pId.player &&
+            (pId.player.summonerId === this.props.summoner.id ||
+              pId.player.accountId === this.props.summoner.accountId)
+          ));
+        if (!player) debugger;
+        const particapantInfo = player ? participants
+          .find((p) => p.participantId === player.participantId) : null;
 
-          return (
-            <RecentMatchListItem key={index} match={match} playerInfo={particapantInfo} />
-          )
-        }
-        return null 
-      })
-    }
-    return null;
+        return player ? (
+          <RecentMatchListItem key={index} match={match} playerInfo={particapantInfo} />
+        ) : null;
+      }
+      return null;
+    })
   }
   render() {
     if (this.props.loadingData || !this.props.matches) {
@@ -42,7 +42,7 @@ class RecentMatchList extends Component {
     return (
       <div aria-hidden={ !!this.props.error || !this.props.matches.length}>
         <Modal name='matchDetails'>
-          <MatchDetails />
+        <MatchDetails />
         </Modal>
         <table className='recent-match-container'>
         <thead>
@@ -53,12 +53,12 @@ class RecentMatchList extends Component {
             <th>Duration</th>
             <th>KDA</th>
           </tr>
-        </thead>
-        <tbody>
-          {this.renderList()}
-        </tbody>
+          </thead>
+          <tbody>
+            {this.renderList()}
+          </tbody>
         </table>
-      </div>
+        </div>
     )
   }
 }

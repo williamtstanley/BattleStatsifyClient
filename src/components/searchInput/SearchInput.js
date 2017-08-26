@@ -7,7 +7,8 @@ import './SearchInput.less';
 @connect(
   (state) => {
     return {
-      search: state.inputs && state.inputs.search
+      search: state.inputs && state.inputs.search,
+      summoner: state.summoner,
     }
   },
   (dispatch) => {
@@ -31,7 +32,6 @@ export default class SearchInput extends Component {
   handleSubmit(e) {
 		e.preventDefault();
     this.props.getSummonerData(this.props.search)
-    document.getElementById('search-form').reset();
   }
   
   handleChange(e) {

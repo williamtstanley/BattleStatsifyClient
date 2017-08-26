@@ -27,6 +27,7 @@ class RecentMatchListItem extends Component {
   }
 
   render() {
+    // console.log('this.props', this.props )    
     if (!this.props.match || !this.props.playerInfo) {
       return null;
     }
