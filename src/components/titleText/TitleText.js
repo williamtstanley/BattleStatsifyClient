@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './TitleText.css';
+import './TitleText.less';
 
 export default class TitleText extends Component {
   render() {

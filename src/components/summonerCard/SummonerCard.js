@@ -5,7 +5,7 @@ import uiActions from '../../actions/uiActions';
 import config from '../../config/default';
 import CardDetailBlock from './CardDetailBlock';
 
-import './SummonerCard.css';
+import './SummonerCard.less';
 
 const urlBase = config.s3.linkBase; 
 
@@ -16,6 +16,7 @@ const urlBase = config.s3.linkBase;
 			summoner: state.summoner,
       summonerError: state.summonerError,
       matches: state.matches,
+      loadingData: state.loadingData,
 		};
 	},
   (dispatch) => {
@@ -25,13 +26,6 @@ const urlBase = config.s3.linkBase;
   }
 )
 export default class SummonerCard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      imgLoaded: false,
-    }
-  }
-
   getProfileIcon() {
     const { profileIconId } = this.props.summoner
     return profileIconId ? 
@@ -68,7 +62,10 @@ export default class SummonerCard extends Component {
     let output;
     const { leagueStat } = this.props.summoner;
     if (leagueStat && leagueStat.length) {
-      const { wins, losses } = leagueStat[0];
+      const numGamesArr = leagueStat.map((stat) => stat.wins + stat.losses)
+      const index = numGamesArr.indexOf(Math.max(...numGamesArr))
+        
+      const { wins, losses } = leagueStat[index];
       const str = `${Math.round((wins / (wins + losses)) * 10000) / 100}%`
       output = (
         <CardDetailBlock
@@ -97,6 +94,9 @@ export default class SummonerCard extends Component {
   }
 
   render() {
+    if (this.props.loadingData) {
+      return null;
+    }
     const notFound = this.props.summonerError ? 
       <h1>Sorry, I could not find a summoner with that name.</h1> : null;
 		return (

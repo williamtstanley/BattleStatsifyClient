@@ -1,7 +1,7 @@
 import React from 'react';
 import logoGear from '../../media/logoGear.png';
 import logoIcon from '../../media/logoIcon.png';
-import './Logo.css';
+import './Logo.less';
 
 export default (props) => (
   <div className='logo'>

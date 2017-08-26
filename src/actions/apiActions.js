@@ -4,12 +4,17 @@ import config from '../config/default';
 const { 
   SUMMONER_DATA_SUCCESS,
   SUMMONER_DATA_FAILURE,
+  FETCH_STATIC_SUCCESS,
+  CLEAR_SUMMONER_DATA,
+  FETCHING_DATA,
 } = actionConstants;
 
 const apiUrl = config.apiUrl[process.env.NODE_ENV || 'development'];
 
 const getSummonerData = (name) => {
   return (dispatch) => {
+    dispatch(toggleFetching())
+    dispatch(clearSummonerAndMatchData())
     return fetch(getRequest(`${apiUrl}/recentMatchData/`, {
       param: name,
     }))
@@ -17,28 +22,56 @@ const getSummonerData = (name) => {
         if(!response.ok) {
           console.log('response', response)
           getErrors(response)
-            .then((error) => dispatch(getSummonerFailure(error)))
+            .then((error) => {
+              dispatch(getSummonerFailure(error))
+              dispatch(toggleFetching())
+            })
         } else {
           getResult(response)
-            .then((result) => dispatch(getSummonerSuccess(result)))
+            .then((result) => {
+              dispatch(getSummonerSuccess(result))
+              dispatch(toggleFetching())
+            })
         }
-      }).catch((err) => {
-        console.log('error on front', err)
       })
   }
 }
 
-const getSummonerSuccess = (result) => {
-  console.log(result)
-  return {
-    type: SUMMONER_DATA_SUCCESS,
-    payload: result,
-  }
-}
+const getSummonerSuccess = (result) => ({
+  type: SUMMONER_DATA_SUCCESS,
+  payload: result,
+})
 
 const getSummonerFailure = (error) => ({
   type: SUMMONER_DATA_FAILURE,
   payload: error,
+})
+
+const clearSummonerAndMatchData = () => ({
+  type: CLEAR_SUMMONER_DATA,
+})
+
+const toggleFetching = () => ({
+  type: FETCHING_DATA,
+})
+
+const fetchStaticData = () => {
+  return (dispatch) => {
+    return fetch(getRequest(`${apiUrl}/static-data/champion`, {}))
+      .then((response) => {
+        if(!response.ok) {
+          console.log('failed for some reason', response)
+        } else {
+          getResult(response)
+          .then((result) => dispatch(fetchStaticDataSuccess(result)))
+        }
+      })
+  }
+}
+
+const fetchStaticDataSuccess = (result) => ({
+  type: FETCH_STATIC_SUCCESS,
+  payload: result,
 })
 
 //HELPERS BELOW
@@ -86,4 +119,5 @@ const getResult = (response) => response.json();
 
 export default {
   getSummonerData,
+  fetchStaticData,
 };

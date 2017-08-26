@@ -2,12 +2,13 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import apiActions from '../../actions/apiActions';
 import uiActions from '../../actions/uiActions';
-import './SearchInput.css';
+import './SearchInput.less';
 
 @connect(
   (state) => {
     return {
-      search: state.inputs && state.inputs.search
+      search: state.inputs && state.inputs.search,
+      summoner: state.summoner,
     }
   },
   (dispatch) => {
@@ -40,11 +41,14 @@ export default class SearchInput extends Component {
   render() {
     return (
       <form
+        id='search-form'
         className='search-form'
         onSubmit={this.handleSubmit}
       >
         <input 
           type={'text'}
+          className='search'
+          placeholder='Summoner name...'
 					onChange={this.handleChange}
         />
         <button>Search</button>

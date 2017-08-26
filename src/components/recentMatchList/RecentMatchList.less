@@ -1,0 +1,69 @@
+.recent-match-container {
+  background-color: #1C242D;
+  margin: 50px auto;
+	width: 100%;
+	box-sizing: border-box;
+	border-collapse: collapse;
+
+  .won-match {
+    color: #A9CF54;
+  }
+
+  .lost-match {
+    color: #C23C2A;
+  }
+
+  .sub-text {
+    color: rgba(255,255,255,0.6);
+  }
+
+  tr {
+  	display: table-row;
+  }
+
+  th {
+    color: white;
+    padding: 5px;
+    font-size: 1.5em;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  tbody {
+    tr:nth-child(odd) {
+      background-color: rgba(255,255,255,0.08);
+    }
+
+    tr:hover {
+      background-color: rgba(0,0,0,0.25);
+    }
+
+    td {
+      overflow: hidden;
+      white-space: nowrap;
+      color: white;
+      text-overflow: ellipsis;
+      cursor:pointer; 
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    
+      .champion-detail-container {
+        display: flex;
+        align-items: center;
+        span {
+          margin: 5px;
+        }
+        img {
+          margin: 5px;
+          width: 50px;
+          height: 50px;
+        }
+      }
+
+    }
+  }
+}
