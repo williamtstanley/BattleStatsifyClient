@@ -14,7 +14,7 @@ class TeamDetails extends Component {
   render() {
     return (
       <table className="team-roster">
-        <TeamDetailHeader /> 
+        <TeamDetailHeader title={this.props.title} /> 
         <tbody>
           {this.renderParticipants()}
         </tbody>

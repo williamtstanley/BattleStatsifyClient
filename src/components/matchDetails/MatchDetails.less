@@ -1,19 +1,47 @@
+@import '../../variables/default.less';
+
 .match-details-container {
   .score-board {
+    position: relative;
+    // top: -30px;
+    margin-bottom: 5px;
     span {
       margin: 0 5px;
     }
   }
+  .team1 {
+    color: @fwGreen;
+    font-size: 1.5em;
+  }
+  
+  .team2 {
+    color: @fwOrange;
+    font-size: 1.5em;
+  }
+
+  .match-results {
+    text-transform: uppercase;
+    font-weight: 800 !important;
+    line-height: 1em;
+    vertical-align: middle;
+    text-align: center;
+    text-shadow: 1px 1px 5px black;
+  }
+
 }
 
 .team-roster {
   background-color: #1C242D;
-  margin: 25px auto;
+  margin: 0px auto 15px auto;
 	width: 100%;
 	box-sizing: border-box;
 	border-collapse: collapse;
 	border: 1px solid black;
-
+  
+  .gold-text {
+    color: @fwYellow;
+  }
+	
 	.item-list-container {
 	  display: flex;
 	  padding: none;

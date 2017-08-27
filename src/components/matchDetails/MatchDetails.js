@@ -38,16 +38,25 @@ class MatchDetails extends Component {
     if (!this.props.match) {
       return null;
     }
+    
     const { teams, match } = this.props;
+    const teamOneWon = match.teams[0].win === 'Win';
+    const teamVictoryClass = `match-results ${teamOneWon ? 'team1' : 'team2'}`
+
     return (
       <div className="match-details-container">
         <div className='score-board'>
-          <span>{this.getKillCount(teams.team1)}</span>
+          <div 
+            className={teamVictoryClass}
+          >
+            {teamOneWon ? 'Team 1' : 'Team 2'} Victory
+          </div>
+          <span className='team1'>{this.getKillCount(teams.team1)}</span>
           <span>{getDuration(match.gameDuration)}</span>
-          <span>{this.getKillCount(teams.team2)}</span>
+          <span className='team2'>{this.getKillCount(teams.team2)}</span>
         </div>
-        <TeamDetails team={teams.team1}/>
-        <TeamDetails team={teams.team2}/>
+        <TeamDetails title='Team 1' team={teams.team1}/>
+        <TeamDetails title='Team 2' team={teams.team2}/>
       </div>
     )
   }
