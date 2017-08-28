@@ -10,3 +10,4 @@ export { default as MatchDetails } from './matchDetails/MatchDetails';
 export { default as ChampionDetail } from './championDetail/ChampionDetail';
 export { default as Spinner } from './spinner/Spinner';
 export { default as ToolTip } from './toolTip/ToolTip';
+export { default as LandingPage } from './landingPage/LandingPage';

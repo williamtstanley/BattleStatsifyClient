@@ -25,20 +25,15 @@ import './SearchInput.less';
 export default class SearchInput extends Component {
   constructor(props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    //TODO figure out a good way to clear search following my chosen criteria
   }
   
-  componentWillReceiveProps(nextProps) {
-    const input = document.getElementById('search-input')
-    if(nextProps.summoner && nextProps.summoner.name !== input.value) {
-      document.forms['search-form'].reset()
-    }
-  }
-
   handleSubmit(e) {
 		e.preventDefault();
     this.props.getSummonerData(this.props.search)
+    this.textInput.blur();
   }
   
   handleChange(e) {
@@ -48,13 +43,12 @@ export default class SearchInput extends Component {
   render() {
     return (
       <form
-        id='search-form'
         className='search-form'
         onSubmit={this.handleSubmit}
       >
         <input 
           type={'text'}
-          id='search-input'
+          ref={(input) => { this.textInput = input }}
           className='search'
           placeholder='Summoner name...'
 					onChange={this.handleChange}

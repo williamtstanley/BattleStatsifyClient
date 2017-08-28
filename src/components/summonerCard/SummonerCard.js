@@ -105,7 +105,6 @@ export default class SummonerCard extends Component {
         { this.props.summoner ? (
           <div
             className='summoner-card-content'
-				    aria-hidden={ !this.props.summonerError ? 'false' : 'true'}
           >
             <div className='profile-content'>
               <div className='profile-icon-container'>

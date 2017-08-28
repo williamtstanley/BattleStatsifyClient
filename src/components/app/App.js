@@ -7,6 +7,7 @@ import {
   SummonerCard,
   SearchInput,
   RecentMatchList,
+  LandingPage,
   Spinner, 
 } from '../'
 
@@ -30,6 +31,7 @@ class App extends Component {
       <div className="App">
         <AppHeader />  
         <SearchInput />
+        <LandingPage />
         <SummonerCard />
         <RecentMatchList />
         <Spinner />
