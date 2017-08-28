@@ -54,8 +54,6 @@ const handlers = {
     });
   },
   [FETCH_STATIC_SUCCESS]: (state, action) => {
-   console.log('payload', action.payload) 
-    
     return Object.assign({}, state,
       action.payload,
     )

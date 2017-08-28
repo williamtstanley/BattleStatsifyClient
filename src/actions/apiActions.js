@@ -20,7 +20,6 @@ const getSummonerData = (name) => {
     }))
       .then((response) => {
         if(!response.ok) {
-          console.log('response', response)
           getErrors(response)
             .then((error) => {
               dispatch(getSummonerFailure(error))
