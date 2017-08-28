@@ -2,12 +2,12 @@
   "apiKey": {
     "development": "d2b1d6a526421e7fda5b9d602aee1387870d5e09f4679781697dbb47e66dc415",
     "stage": "",
-    "production": ""
+    "production": "d2b1d6a526421e7fda5b9d602aee1387870d5e09f4679781697dbb47e66dc415"
   },
   "apiUrl": {
     "development": "http://localhost:3001",
     "stage": "",
-    "production": ""
+    "production": "api.foxworks.tech"
   },
   "appData": {
     "appName": "BattleStatsifyClient"

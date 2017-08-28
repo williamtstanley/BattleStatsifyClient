@@ -7,8 +7,9 @@ class ToolTip extends Component {
     this.state = {
       renderTip: false,
     }
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
-    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.buildClassName = this.buildClassName.bind(this);
   }
   handleMouseEnter(e) {
     this.setState({
@@ -19,7 +20,12 @@ class ToolTip extends Component {
     this.setState({
       renderTip: false,
     })
-  } 
+  }
+
+  buildClassName(defaultClass) {
+    return `${defaultClass} ${this.props.className}`
+  }
+
   render() {
     if (!this.props.tip) {
       return null;
@@ -28,7 +34,7 @@ class ToolTip extends Component {
       <div
         onMouseEnter={this.handleMouseEnter}  
         onMouseLeave={this.handleMouseLeave}
-        className='tool-tip-parent'  
+        className={this.buildClassName('tool-tip-parent')}  
       >
         {this.state.renderTip ? <div className='tool-tip-container'>{this.props.tip}</div> : null}
         {this.props.children}

@@ -15,7 +15,10 @@ import './App.less';
 @connect(
   undefined,
   (dispatch) => ({
-    fetchStaticData: () => dispatch(apiActions.fetchStaticData()),
+    fetchStaticData: () => {
+      dispatch(apiActions.fetchStaticData('champions'))
+      dispatch(apiActions.fetchStaticData('items'))
+    },
   })
 )
 class App extends Component {

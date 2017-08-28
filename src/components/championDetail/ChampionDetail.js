@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ToolTip } from '../';
 import config from '../../config/default';
 
 const urlBase = config.s3.linkBase; 
@@ -18,6 +19,19 @@ class ChampionDetail extends Component {
   }
   
   render() {
+    if (this.props.noText) {
+      return (
+        <ToolTip tip={<span>{this.props.champion.name}</span>}>
+          <div className='champion-detail-container'>
+            <img
+              src={this.getImageUrl()}
+              className='profile-icon'
+              alt='profile-icon'
+            />
+          </div>
+        </ToolTip>
+      )
+    }
     return (
       <div className='champion-detail-container'>
         <img
@@ -25,9 +39,7 @@ class ChampionDetail extends Component {
           className='profile-icon'
           alt='profile-icon'
         />
-        {
-          !this.props.noText ? <span>{this.props.champion.name}</span> : null
-        }
+        <span>{this.props.champion.name}</span>
       </div>
     )
   }

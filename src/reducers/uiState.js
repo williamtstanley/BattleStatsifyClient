@@ -54,9 +54,11 @@ const handlers = {
     });
   },
   [FETCH_STATIC_SUCCESS]: (state, action) => {
-    return Object.assign({}, state, {
-      champions: action.payload
-    })
+   console.log('payload', action.payload) 
+    
+    return Object.assign({}, state,
+      action.payload,
+    )
   },
   [TOGGLE_MODAL]: (state, action) => {
     return Object.assign({}, state, {

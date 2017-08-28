@@ -55,23 +55,23 @@ const toggleFetching = () => ({
   type: FETCHING_DATA,
 })
 
-const fetchStaticData = () => {
+const fetchStaticData = (name) => {
   return (dispatch) => {
-    return fetch(getRequest(`${apiUrl}/static-data/champion`, {}))
+    return fetch(getRequest(`${apiUrl}/static-data/${name}`, {}))
       .then((response) => {
         if(!response.ok) {
           console.log('failed for some reason', response)
         } else {
           getResult(response)
-          .then((result) => dispatch(fetchStaticDataSuccess(result)))
+          .then((result) => dispatch(fetchStaticDataSuccess(result, name)))
         }
       })
   }
 }
 
-const fetchStaticDataSuccess = (result) => ({
+const fetchStaticDataSuccess = (result, name) => ({
   type: FETCH_STATIC_SUCCESS,
-  payload: result,
+  payload: {[name]: result},
 })
 
 //HELPERS BELOW

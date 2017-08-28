@@ -72,7 +72,7 @@ const columnHeaders = [
 const TableHeaderContent = (props) => (
   <th className={props.className}>
     <ToolTip tip={<span>{props.toolTipText}</span>}>
-      {props.displayText}
+      <span>{props.displayText}</span>
     </ToolTip>
   </th>
 )
