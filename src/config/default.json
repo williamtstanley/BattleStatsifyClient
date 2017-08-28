@@ -7,7 +7,7 @@
   "apiUrl": {
     "development": "http://localhost:3001",
     "stage": "",
-    "production": "api.foxworks.tech"
+    "production": "http://api.foxworks.tech"
   },
   "appData": {
     "appName": "BattleStatsifyClient"
