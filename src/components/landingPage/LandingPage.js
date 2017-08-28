@@ -5,11 +5,13 @@ import './LandingPage.less';
 @connect(
   (state) => ({
     summoner: state.summoner,
+    summonerError: state.summonerError,
+    loading: state.loadingData,
   })
 )
 class LandingPage extends Component {
   render() {
-    if (this.props.summoner || this.props.summonerError) {
+    if (this.props.summoner || this.props.summonerError || this.props.loading) {
       return null;
     }
     return (
