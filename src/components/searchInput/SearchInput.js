@@ -29,6 +29,13 @@ export default class SearchInput extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   
+  componentWillReceiveProps(nextProps) {
+    const input = document.getElementById('search-input')
+    if(nextProps.summoner && nextProps.summoner.name !== input.value) {
+      document.forms['search-form'].reset()
+    }
+  }
+
   handleSubmit(e) {
 		e.preventDefault();
     this.props.getSummonerData(this.props.search)
@@ -47,6 +54,7 @@ export default class SearchInput extends Component {
       >
         <input 
           type={'text'}
+          id='search-input'
           className='search'
           placeholder='Summoner name...'
 					onChange={this.handleChange}
